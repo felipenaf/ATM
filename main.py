@@ -1,26 +1,45 @@
 from connection import Connection
 from pessoaFisica import PessoaFisica
+from contaCorrente import ContaCorrente
 
-CON = Connection().instance('felipe', '123')
+CON = Connection.instance('felipe', '123')
 CURSOR = CON.cursor()
 
-P = PessoaFisica()
-P.setCpf('123.456.789-10')
-P.setNome('pedro')
-P.setIdade(25)
-cpf = P.getCpf()
-nome = P.getNome()
-idade = P.getIdade()
+p = PessoaFisica()
+p.setCpf('123.456.789-10')
+p.setNome('pedro')
+p.setIdade(25)
 
-print (cpf)
-print (nome)
-print (idade)
+cpf = p.getCpf()
+nome = p.getNome()
+idade = p.getIdade()
+
+print(cpf)
+print(nome)
+print(idade)
+
+p.depositar(5)
+p.sacar(2)
+saldo = p.getSaldo()
+
+print (saldo)
+
+# cc = ContaCorrente()
+# print (cc.getSaldo())
 
 # query = "INSERT INTO pessoaFisica (cpf, nome, idade) VALUES (%s, %s, %s);"
 # info = (P.cpf, P.nome, P.idade)
 
-# # CURSOR.execute("DROP TABLE pessoaFisica;")
-# # CURSOR.execute("CREATE TABLE pessoaFisica(cpf VARCHAR(50) NOT NULL PRIMARY KEY, nome varchar(50), idade INT(5));")
+# CURSOR.execute("DROP TABLE pessoaFisica;")
+
+# CURSOR.execute(
+#     "CREATE TABLE pessoaFisica("
+#     "cpf VARCHAR(50) NOT NULL PRIMARY KEY,"
+#     "nome varchar(50),"
+#     "idade INT(5)"
+#     ");"
+# )
+
 # CURSOR.execute(query, info)
 
 # CON.commit()

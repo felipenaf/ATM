@@ -1,7 +1,12 @@
+from contaCorrente import ContaCorrente
 """ import de bibliotecas """
 
-class Pessoa(object):
+class Pessoa(ContaCorrente):
     """ Classe Pessoa """
+
+    __id = 0
+    __nome = ''
+    __idade = 0
 
     # """ Construtor / Aceita vazio ou os dois valores preenchidos"""
     # def __init__(self, nome = None, idade = None):
@@ -9,18 +14,22 @@ class Pessoa(object):
     #         self.__nome = nome
     #         self.__idade = idade
 
-    """ Setar o nome """
     def setNome(self, nome):
+        """ Setar o nome """
         self.__nome = nome
 
-    """ Setar a idade """
     def setIdade(self, idade):
+        """ Setar a idade """
         self.__idade = idade
 
-    """ Pegar o nome """
+    def getId(self):
+        """ Pegar o id """
+        return self.__id
+
     def getNome(self):
+        """ Pegar o nome """
         return self.__nome
 
-    """ Pegar a idade """
     def getIdade(self):
+        """ Pegar a idade """
         return self.__idade
