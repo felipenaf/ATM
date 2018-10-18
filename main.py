@@ -1,23 +1,30 @@
 from connection import Connection
 from pessoaFisica import PessoaFisica
 
-CON = Connection().instance()
+CON = Connection().instance('felipe', '123')
 CURSOR = CON.cursor()
 
-P = PessoaFisica('402.149.696-55', 'Chelas', 29)
-cpf = P.cpf
-nome = P.nome
-idade = P.idade
+P = PessoaFisica()
+P.setCpf('123.456.789-10')
+P.setNome('pedro')
+P.setIdade(25)
+cpf = P.getCpf()
+nome = P.getNome()
+idade = P.getIdade()
 
-query = "INSERT INTO pessoaFisica (cpf, nome, idade) VALUES (%s, %s, %s);"
-info = (P.cpf, P.nome, P.idade)
+print (cpf)
+print (nome)
+print (idade)
 
-# CURSOR.execute("DROP TABLE pessoaFisica;")
-# CURSOR.execute("CREATE TABLE pessoaFisica(cpf VARCHAR(50) NOT NULL PRIMARY KEY, nome varchar(50), idade INT(5));")
-CURSOR.execute(query, info)
+# query = "INSERT INTO pessoaFisica (cpf, nome, idade) VALUES (%s, %s, %s);"
+# info = (P.cpf, P.nome, P.idade)
 
-CON.commit()
+# # CURSOR.execute("DROP TABLE pessoaFisica;")
+# # CURSOR.execute("CREATE TABLE pessoaFisica(cpf VARCHAR(50) NOT NULL PRIMARY KEY, nome varchar(50), idade INT(5));")
+# CURSOR.execute(query, info)
 
-print(CURSOR.rowcount, "record inserted.")
+# CON.commit()
+
+# print(CURSOR.rowcount, "record inserted.")
 
 CON.close()

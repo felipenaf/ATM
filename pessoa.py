@@ -3,23 +3,24 @@
 class Pessoa(object):
     """ Classe Pessoa """
 
-    def __init__(self, nome, idade):
-        """ Construtor """
-        self.nome = nome
-        self.idade = idade
+    # """ Construtor / Aceita vazio ou os dois valores preenchidos"""
+    # def __init__(self, nome = None, idade = None):
+    #     if (nome is not None) and (idade is not None):
+    #         self.__nome = nome
+    #         self.__idade = idade
 
-    def set_nome(self, nome):
-        """ Setar o nome """
-        self.nome = nome
+    """ Setar o nome """
+    def setNome(self, nome):
+        self.__nome = nome
 
-    def set_idade(self, idade):
-        """ Setar a idade """
-        self.idade = idade
+    """ Setar a idade """
+    def setIdade(self, idade):
+        self.__idade = idade
 
-    def get_nome(self):
-        """ Pegar o nome """
-        return self.nome
+    """ Pegar o nome """
+    def getNome(self):
+        return self.__nome
 
-    def get_idade(self):
-        """ Pegar a idade """
-        return self.idade
+    """ Pegar a idade """
+    def getIdade(self):
+        return self.__idade

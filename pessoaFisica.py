@@ -1,12 +1,13 @@
 from pessoa import Pessoa
 
 class PessoaFisica(Pessoa):
-    def __init__(self, cpf, nome, idade):
-        super().__init__(nome, idade)
-        self.cpf = cpf
+    
+    # def __init__(self, cpf=None, nome=None, idade=None):
+    #     super().__init__(nome, idade)
+    #     self.__cpf = cpf
 
-    def set_cpf(self, cpf):
-        self.cpf = cpf
+    def setCpf(self, cpf):
+        self.__cpf = cpf
 
-    def get_cpf(self):
-        return self.cpf
+    def getCpf(self):
+        return self.__cpf

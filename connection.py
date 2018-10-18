@@ -1,14 +1,14 @@
 """ import de libs """
 import mysql.connector
 
+""" Classe Connection """
 class Connection(object):
-    """ Classe Connection """
-
-    def instance(self):
-        """ Instanciar conexão do banco """
+    
+    """ Instanciar conexão do banco """
+    def instance(self, usuario, senha):
         connection = mysql.connector.connect(
-            user='felipe',
-            password='123',
+            user=usuario,
+            password=senha,
             host='127.0.0.1',
             database='atm')
         return connection
