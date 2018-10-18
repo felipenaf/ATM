@@ -1,22 +1,32 @@
 from connection import Connection
 from pessoaFisica import PessoaFisica
 from contaCorrente import ContaCorrente
+from login import Login
 
-CON = Connection.instance('felipe', '123')
-CURSOR = CON.cursor()
+l = Login().validaLogin('1','123')
 
-p = PessoaFisica()
-p.setCpf('123.456.789-10')
-p.setNome('pedro')
-p.setIdade(25)
+print(l)
 
-print(p.getCpf())
-print(p.getNome())
-print(p.getIdade())
+if l == True:
+    print('Boa garoto')
+else:
+    print('Taporra fudeu')
 
-p.depositar(5)
-p.sacar(2)
-print(p.getSaldo())
+# CON = Connection.instance('felipe', '123')
+# CURSOR = CON.cursor()
+
+# p = PessoaFisica()
+# p.setCpf('123.456.789-10')
+# p.setNome('pedro')
+# p.setIdade(25)
+
+# print(p.getCpf())
+# print(p.getNome())
+# print(p.getIdade())
+
+# p.depositar(5)
+# p.sacar(2)
+# print(p.getSaldo())
 
 # cc = ContaCorrente()
 # print (cc.getSaldo())
@@ -40,4 +50,4 @@ print(p.getSaldo())
 
 # print(CURSOR.rowcount, "record inserted.")
 
-CON.close()
+# CON.close()

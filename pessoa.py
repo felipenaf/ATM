@@ -7,6 +7,7 @@ class Pessoa(ContaCorrente):
     __id = 0
     __nome = ''
     __idade = 0
+    __senha = ''
 
     # """ Construtor / Aceita vazio ou os dois valores preenchidos"""
     # def __init__(self, nome = None, idade = None):
@@ -22,6 +23,10 @@ class Pessoa(ContaCorrente):
         """ Setar a idade """
         self.__idade = idade
 
+    def setSenha(self, senha):
+        """ Setar a senha """
+        self.__senha = senha
+
     def getId(self):
         """ Pegar o id """
         return self.__id
@@ -33,3 +38,6 @@ class Pessoa(ContaCorrente):
     def getIdade(self):
         """ Pegar a idade """
         return self.__idade
+
+    def getSenha(self):
+        return self.__senha
