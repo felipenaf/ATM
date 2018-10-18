@@ -10,19 +10,13 @@ p.setCpf('123.456.789-10')
 p.setNome('pedro')
 p.setIdade(25)
 
-cpf = p.getCpf()
-nome = p.getNome()
-idade = p.getIdade()
-
-print(cpf)
-print(nome)
-print(idade)
+print(p.getCpf())
+print(p.getNome())
+print(p.getIdade())
 
 p.depositar(5)
 p.sacar(2)
-saldo = p.getSaldo()
-
-print (saldo)
+print(p.getSaldo())
 
 # cc = ContaCorrente()
 # print (cc.getSaldo())
