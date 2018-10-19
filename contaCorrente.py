@@ -1,31 +1,31 @@
-""" Classe Pessoa """
+""" import de libs """
 
 class ContaCorrente(object):
-    """ Classe Pessoa """
+    """ Classe ContaCorrente """
 
-    __numero = ''
-    __agencia = ''
+    __numeroCC = ''
     __saldo = 0
+    __status = False
 
-    def setNr(self, numero):
+    def setNumeroCC(self, numeroCC):
         """ Setar o número da conta """
         
-        self.__numero = numero
+        self.__numeroCC = numeroCC
 
-    def getNr(self):
+    def getNumeroCC(self):
         """ Setar o número da conta """
 
-        return self.__numero
+        return self.__numeroCC
 
-    def setAgencia(self, agencia):
+    def setStatus(self, status):
         """ Setar o número da agência """
 
-        self.__agencia = agencia
+        self.__status = status
 
-    def getAgencia(self):
+    def getStatus(self):
         """ Pegar o número da agência """
 
-        return self.__agencia
+        return self.__status
 
     def getSaldo(self):
         """ Pegar o saldo """

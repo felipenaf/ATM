@@ -1,7 +1,7 @@
 from contaCorrente import ContaCorrente
 """ import de bibliotecas """
 
-class Pessoa(ContaCorrente):
+class Pessoa(object):
     """ Classe Pessoa """
 
     __id = 0
