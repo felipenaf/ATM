@@ -5,7 +5,11 @@
 - Conta Corrente
 - Conexão
 
+## Preparar ambiente
 
+- Python 3.6
+- Módulo mysql
+-- pip3 install mysql-connector
 
 
 

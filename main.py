@@ -5,30 +5,41 @@ from os import system
 from funcoes import *
 import getpass
 import time
+from login import Login
 
 msgLogar()
+# problemas: na segunda tentativa não pega os valores digitados
+# login = input('Login: ')
+# senha = getpass.getpass('Senha: ')
+result = Login.autenticacao('', '')
 
-login = input('Login: ')
-senha = getpass.getpass('Senha: ')
-
-CON = Connection.instance('felipe', '123')
-CURSOR = CON.cursor()
-
-query = "SELECT COUNT(*) FROM cliente WHERE nome = %s and senha = %s;"
-info = (login, senha)
-
-resultado = CURSOR.execute(query, info)
-
-resultado = ("%s" % CURSOR.fetchone())
-
-while (resultado != '1'):
+while result != True:
     print("\nSenha incorreta")
     time.sleep(3)
-    msgLogar()
     login = input('Login: ')
     senha = getpass.getpass('Senha: ')
+    result = Login.autenticacao(login, senha)
 else:
-    print('oi')
+    print('Bem vindo', result)
+
+# CON = Connection.instance('felipe', '123')
+# CURSOR = CON.cursor()
+
+# query = "SELECT COUNT(*) FROM cliente WHERE nome = %s and senha = %s;"
+# info = (login, senha)
+
+# resultado = CURSOR.execute(query, info)
+
+# resultado = ("%s" % CURSOR.fetchone())
+
+# while (resultado != '1'):
+#     print("\nSenha incorreta")
+#     time.sleep(3)
+#     msgLogar()
+#     login = input('Login: ')
+#     senha = getpass.getpass('Senha: ')
+# else:
+#     print('oi')
     
 # if (resultado == '1'):
 #     print ("Bem vindo", login, "!")
@@ -37,7 +48,7 @@ else:
 
 # CON.commit()
 # print(CURSOR.rowcount, "record inserted.")
-CON.close()
+# CON.close()
 
 
 # if login != 1:
