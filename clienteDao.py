@@ -1,15 +1,16 @@
 from cliente import Cliente
+from connection import Connection
 
-class ClienteDao(Cliente):
+class ClienteDao():
 
-    def cadastrar(self):
-        pass
+    def getByLoginSenha(login, senha):
+        con = Connection.instance()
+        cursor = con.cursor()
+        cursor.execute("SELECT * FROM cliente WHERE cpf = %s and senha = %s;", (login, senha))
+        return cursor.fetchone()
+        con.close()
 
-    def excluir(self):
-        pass
+    def cadastrar(self, cliente):
 
-    def listar(self):
-        pass
-
-    def editar(self):
-        pass
+        
+        cliente.getNome()

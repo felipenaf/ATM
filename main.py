@@ -1,26 +1,35 @@
-from connection import Connection
+from login import Login
 from cliente import Cliente
+from connection import Connection
+from clienteDao import ClienteDao
 from contaCorrente import ContaCorrente
 from os import system
-from funcoes import *
+import funcoes
 import getpass
 import time
-from login import Login
 
-msgLogar()
-# problemas: na segunda tentativa não pega os valores digitados
-# login = input('Login: ')
-# senha = getpass.getpass('Senha: ')
-result = Login.autenticacao('', '')
+funcoes.msgLogar()
+login = input('Login: ')
+senha = getpass.getpass('Senha: ')
+result = Login.autenticacao(login, senha)
 
 while result != True:
     print("\nSenha incorreta")
-    time.sleep(3)
+    time.sleep(2)
+    funcoes.msgLogar()
     login = input('Login: ')
     senha = getpass.getpass('Senha: ')
     result = Login.autenticacao(login, senha)
 else:
-    print('Bem vindo', result)
+    user = ClienteDao.getByLoginSenha(login, senha)
+    funcoes.msgBemVindo(user[2])
+
+
+# c = Cliente()
+# c.setNome('felipe')
+# cDao = ClienteDao()
+# cDao.cadastrar(c)
+    
 
 # CON = Connection.instance('felipe', '123')
 # CURSOR = CON.cursor()

@@ -10,15 +10,14 @@ class Login(object):
     def autenticacao(self, login, senha):
         self.login = login
         self.senha = senha
-        con = Connection.instance('felipe', '123')
+        con = Connection.instance()
         cursor = con.cursor()
-        query = "SELECT COUNT(*) FROM cliente WHERE nome = %s and senha = %s;"
+        query = "SELECT COUNT(*) FROM cliente WHERE cpf = %s and senha = %s;"
         cursor.execute(query, (self.login, self.senha))
         resultado = ("%s" % cursor.fetchone())
         con.close()
 
         if resultado == '1':
             return True
-            return self.login
         else:
             return False

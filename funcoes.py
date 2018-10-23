@@ -1,8 +1,12 @@
 from os import system
 import getpass
 
-def msgBemVindo():
-  print ("""\t\t\t## Bem vindo ao Caixa Eletronico ##
+def msgBemVindo(nome):
+      
+  system("clear")
+
+  print ("""\t\t\t## Bem vindo Sr(a).""", nome, """
+        \t\tEscolha uma das opções a seguir
         \t\t###################################
         \t\t### 1 ## Deposito.              ###
         \t\t### 2 ## Saque.                 ###
