@@ -11,6 +11,7 @@ class ClienteDao():
         con.close()
 
     def cadastrar(self, cliente):
-
-        
-        cliente.getNome()
+        con = Connection.instance()
+        cursor = con.cursor()
+        dados = (cliente.getCpf(), cliente.getNome(), cliente.getIdade(), cliente.getSenha())
+        cursor.execute("INSERT INTO cliente (cpf, nome, idade, senha) VALUES (%s, %s, %s, %s);", dados)

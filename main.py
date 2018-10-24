@@ -22,7 +22,14 @@ while result != True:
     result = Login.autenticacao(login, senha)
 else:
     user = ClienteDao.getByLoginSenha(login, senha)
-    funcoes.msgBemVindo(user[2])
+
+    if user[1] == 'admin':
+        funcoes.msgAdmin(user[2])
+        if funcoes.inputOpc(5):
+            print ('deu certo')
+    else:
+        funcoes.msgBemVindo(user[2])
+        print(user)
 
 
 # c = Cliente()

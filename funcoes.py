@@ -27,7 +27,31 @@ def msgLogar():
         \t\t###################################
       """)
 
-def loginSenha(self, login, senha):
-  self.login = login
-  self.senha = senha
+def msgAdmin(nome):
+      
+  system("clear")
+
+  print ("""\t\t\t## Bem vindo Sr(a).""", nome, """
+            \t\tEscolha uma das opções a seguir
+            \t\t###################################
+            \t\t### 1 ## Cadastrar              ###
+            \t\t### 2 ## Consultar              ###
+            \t\t### 3 ## Excluir                ###
+            \t\t### 4 ## Editar                 ###
+            \t\t### 5 ## Sair                   ###
+            \t\t###################################
+        """)
+
+def isInt(value):
+  try:
+    int(value)
+  except ValueError:
+    return False
+  return True
+
+def inputOpc(numero):
   
+  while isInt(input('Escolha uma opção: ')) == False:
+    print('Digite apenas números inteiros ou ')
+  else:
+    True
