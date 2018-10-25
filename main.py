@@ -4,11 +4,11 @@ from connection import Connection
 from clienteDao import ClienteDao
 from contaCorrente import ContaCorrente
 from os import system
-import funcoes
+from funcoes import *
 import getpass
 import time
 
-funcoes.msgLogar()
+msgLogar()
 login = input('Login: ')
 senha = getpass.getpass('Senha: ')
 result = Login.autenticacao(login, senha)
@@ -16,7 +16,7 @@ result = Login.autenticacao(login, senha)
 while result != True:
     print("\nSenha incorreta")
     time.sleep(2)
-    funcoes.msgLogar()
+    msgLogar()
     login = input('Login: ')
     senha = getpass.getpass('Senha: ')
     result = Login.autenticacao(login, senha)
@@ -24,12 +24,33 @@ else:
     user = ClienteDao.getByLoginSenha(login, senha)
 
     if user[1] == 'admin':
-        funcoes.msgAdmin(user[2])
-        if funcoes.inputOpc(5):
-            print ('deu certo')
+        msgAdmin(user[2])
+        teclado = ''
+        opc = inputOpc(teclado, user, 5, msgAdmin)
+
+        if opc == '1':
+            c = Cliente()
+            c.setCpf(input('CPF: '))
+            c.setNome(input('NOME: '))
+            c.setIdade(input('IDADE: '))
+            c.setSenha(input('SENHA: '))
+
+            cDao = ClienteDao()
+            cDao.cadastrar(c)
+        elif opc == '2':
+            pass
+        elif opc == '3':
+            pass
+        elif opc == '4':
+            pass
+        elif opc == '5':
+            print('\nEncerrando seção ...')
+            time.sleep(2)
+            quit()
     else:
-        funcoes.msgBemVindo(user[2])
+        msgBemVindo(user[2])
         print(user)
+
 
 
 # c = Cliente()
