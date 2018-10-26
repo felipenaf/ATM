@@ -9,9 +9,9 @@
 
 - Python 3.6
 - Módulo mysql
-- Ações necessárias: 
+Ações necessárias:
 -- sudo apt install python3-pip 
--- pip3 install --upgrade setuptools 
+-- pip3 install --upgrade setuptools
 -- pip3 install mysql-connector 
 
 ## Mysql
