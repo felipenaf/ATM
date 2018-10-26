@@ -11,16 +11,15 @@
 - Módulo mysql
 - Ações necessárias:
 
--- sudo apt install python3-pip
-
--- pip3 install --upgrade setuptools.
-
--- pip3 install mysql-connector
+sudo apt install python3-pip 
+pip3 install --upgrade setuptools  
+pip3 install mysql-connector 
 
 ## Mysql
 - É necessário importar o arquivo query.sql
 - Comando terminal linux:
--- mysql -u usuario -psenha < nome_do_arquivo.sql
+
+mysql -u usuario -psenha < nome_do_arquivo.sql
 
 
 
