@@ -1,24 +1,22 @@
 # ATM
 
+## Ambiente
+- Linux Mint 19 Tara
+- Python 3.6
+- Mysql
+
+##### Ações necessárias:
+---
+> Executar no terminal:
+* sudo apt install python3-pip 
+* pip3 install --upgrade setuptools
+* pip3 install mysql-connector 
+* mysql -u usuario_mysql -psenha < query.sql (Na raiz do projeto)
+
 ## Classes 
 - Cliente
 - Conta Corrente
 - Conexão
-
-## Preparar ambiente
-
-- Python 3.6
-- Módulo mysql
-Ações necessárias:
--- sudo apt install python3-pip 
--- pip3 install --upgrade setuptools
--- pip3 install mysql-connector 
-
-## Mysql
-- É necessário importar o arquivo query.sql
-- Comando terminal linux:
-
-mysql -u usuario -psenha < nome_do_arquivo.sql
 
 
 
