@@ -11,6 +11,7 @@ CREATE TABLE atm.cliente(
 
 INSERT INTO atm.cliente (cpf, nome, senha) VALUES ('admin', 'Admnistrador', 'admin');
 
+
 -- CREATE TABLE pessoa(
 --     id int(5) AUTO_INCREMENT PRIMARY KEY,
 --     nome VARCHAR(50) NOT NULL,
