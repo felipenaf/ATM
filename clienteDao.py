@@ -21,7 +21,7 @@ class ClienteDao():
             con = Connection.instance()
             cursor = con.cursor()
             dados = (cliente.getCpf(), cliente.getNome(), cliente.getIdade(), cliente.getSenha())
-            cursor.execute("INSET INTO cliente (cpf, nome, idade, senha) VALUES (%s, %s, %s, %s);", dados)
+            cursor.execute("INSERT INTO cliente (cpf, nome, idade, senha) VALUES (%s, %s, %s, %s);", dados)
             con.commit()
         except:
             print('Não foi possível realizar o cadastro!\n')
@@ -30,7 +30,7 @@ class ClienteDao():
         finally:
             con.close()
 
-    def listar():
+    def listar(self):
         try:
             con = Connection.instance()
             cursor = con.cursor()
@@ -38,6 +38,20 @@ class ClienteDao():
         except:
             print('\nAlgo deu errado.')
         else:
-            cursor.fetchall()
+            result = cursor.fetchall()
+            return result
+        finally:
+            con.close()
+
+    def excluir(self, id):
+        try:
+            con = Connection.instance()
+            cursor = con.cursor()
+            cursor.execute("DELETE FROM atm.cliente WHERE id = %s;", id)
+            con.commit()
+        except:
+            print('Não foi possível realizar a exclusão!\n')
+        else:
+            print('Cliente excluído com sucesso!\n')
         finally:
             con.close()

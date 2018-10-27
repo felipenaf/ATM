@@ -38,9 +38,29 @@ else:
             cDao = ClienteDao()
             cDao.cadastrar(c)
         elif opc == '2':
-            pass
+            cDao = ClienteDao()
+            result = cDao.listar()
+            print('\n')
+            for linha in result:                
+                print('\tNome : ' , linha[2], '\n', 
+                    '\tIdade: ' , linha[3], '\n', 
+                    '\tCPF  : ', linha[1], '\n')
+                
         elif opc == '3':
-            pass
+            cDao = ClienteDao()
+            result = cDao.listar()
+            print('\n')
+            for linha in result:                
+                print('\tID   : ' , linha[0], '\n',
+                    '\tNome : ' , linha[2], '\n', 
+                    '\tIdade: ' , linha[3], '\n', 
+                    '\tCPF  : ', linha[1], '\n')
+            
+            c = Cliente()
+            c.setId(int(input('Informe o id do usuário a ser excluído: ')))
+            print(c.getId())
+            cDao.excluir(c.getId())
+
         elif opc == '4':
             pass
         elif opc == '5':

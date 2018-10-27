@@ -14,6 +14,9 @@ class Pessoa(object):
     #     if (nome is not None) and (idade is not None):
     #         self.__nome = nome
     #         self.__idade = idade
+    def setId(self, id):
+        """ Setar o id """
+        self.__id = id
 
     def setNome(self, nome):
         """ Setar o nome """
