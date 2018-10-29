@@ -1,6 +1,9 @@
 from pessoa import Pessoa
 
-class Cliente(Pessoa):
+class PessoaFisica(Pessoa):
+
+    __cpf = ''
+    __nome = ''
     
     # def __init__(self, cpf=None, nome=None, idade=None):
     #     super().__init__(nome, idade)
@@ -11,3 +14,9 @@ class Cliente(Pessoa):
 
     def getCpf(self):
         return self.__cpf
+
+    def setNome(self, nome):
+        self.__nome = nome
+
+    def getNome(self):
+        return self.__nome

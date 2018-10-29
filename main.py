@@ -1,5 +1,4 @@
 from login import Login
-from cliente import Cliente
 from connection import Connection
 from clienteDao import ClienteDao
 from contaCorrente import ContaCorrente
@@ -13,6 +12,53 @@ login = input('Login: ')
 senha = getpass.getpass('Senha: ')
 result = Login.autenticacao(login, senha)
 
+# Usuário Administrador
+if login == 'admin' and senha == 'admin':
+    msgAdmin('Administrador')
+    teclado = ''
+    opc = inputOpc(teclado, user, 5, msgAdmin)
+
+    if opc == '1':
+        c = Cliente()
+        c.setCpf(input('CPF: '))
+        c.setNome(input('NOME: '))
+        c.setIdade(input('IDADE: '))
+        c.setSenha(input('SENHA: '))
+
+        cDao = ClienteDao()
+        cDao.cadastrar(c)
+    elif opc == '2':
+        cDao = ClienteDao()
+        result = cDao.listar()
+        print('\n')
+        for linha in result:                
+            print('\tNome : ' , linha[2], '\n', 
+                '\tIdade: ' , linha[3], '\n', 
+                '\tCPF  : ', linha[1], '\n')
+            
+    elif opc == '3':
+        cDao = ClienteDao()
+        result = cDao.listar()
+        print('\n')
+        for linha in result:                
+            print('\tID   : ' , linha[0], '\n',
+                '\tNome : ' , linha[2], '\n', 
+                '\tIdade: ' , linha[3], '\n', 
+                '\tCPF  : ', linha[1], '\n')
+        
+        c = Cliente()
+        c.setId(int(input('Informe o id do usuário a ser excluído: ')))
+        print(c.getId())
+        cDao.excluir(c.getId())
+
+    elif opc == '4':
+        pass
+    elif opc == '5':
+        print('\nEncerrando seção ...')
+        time.sleep(2)
+        quit()
+
+# Usuário comum (Cliente)
 while result != True:
     print("\nSenha incorreta")
     time.sleep(2)
@@ -23,53 +69,8 @@ while result != True:
 else:
     user = ClienteDao.getByLoginSenha(login, senha)
 
-    if user[1] == 'admin':
-        msgAdmin(user[2])
-        teclado = ''
-        opc = inputOpc(teclado, user, 5, msgAdmin)
-
-        if opc == '1':
-            c = Cliente()
-            c.setCpf(input('CPF: '))
-            c.setNome(input('NOME: '))
-            c.setIdade(input('IDADE: '))
-            c.setSenha(input('SENHA: '))
-
-            cDao = ClienteDao()
-            cDao.cadastrar(c)
-        elif opc == '2':
-            cDao = ClienteDao()
-            result = cDao.listar()
-            print('\n')
-            for linha in result:                
-                print('\tNome : ' , linha[2], '\n', 
-                    '\tIdade: ' , linha[3], '\n', 
-                    '\tCPF  : ', linha[1], '\n')
-                
-        elif opc == '3':
-            cDao = ClienteDao()
-            result = cDao.listar()
-            print('\n')
-            for linha in result:                
-                print('\tID   : ' , linha[0], '\n',
-                    '\tNome : ' , linha[2], '\n', 
-                    '\tIdade: ' , linha[3], '\n', 
-                    '\tCPF  : ', linha[1], '\n')
-            
-            c = Cliente()
-            c.setId(int(input('Informe o id do usuário a ser excluído: ')))
-            print(c.getId())
-            cDao.excluir(c.getId())
-
-        elif opc == '4':
-            pass
-        elif opc == '5':
-            print('\nEncerrando seção ...')
-            time.sleep(2)
-            quit()
-    else:
-        msgBemVindo(user[2])
-        print(user)
+    msgBemVindo(user[2])
+    print(user)
 
 
 

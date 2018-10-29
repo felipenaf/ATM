@@ -5,7 +5,6 @@ class ContaCorrente(object):
 
     __numeroCC = ''
     __saldo = 0
-    __status = False
 
     def setNumeroCC(self, numeroCC):
         """ Setar o número da conta """
