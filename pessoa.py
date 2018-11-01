@@ -7,24 +7,13 @@ class Pessoa(object):
     __id = 0
     __login = ''
     __senha = ''
+    __nome = ''
+    __tipo = ''
+    __documento = ''
 
-    # """ Construtor / Aceita vazio ou os dois valores preenchidos"""
-    # def __init__(self, nome = None, idade = None):
-    #     if (nome is not None) and (idade is not None):
-    #         self.__nome = nome
-    #         self.__idade = idade
-    
-    def setId(self, id):
-        """ Setar o id """
-        self.__id = id
-
-    def setLogin(self, login):
-        """ Setar o login """
-        self.login = login
-
-    def setSenha(self, senha):
-        """ Setar a senha """
-        self.__senha = senha
+    ''' ### '''
+    ''' GET '''
+    ''' ### '''
 
     def getId(self):
         """ Pegar o id """
@@ -35,4 +24,45 @@ class Pessoa(object):
         return self.__login
 
     def getSenha(self):
+        """ Pegar a senha """
         return self.__senha
+
+    def getNome(self):
+        """ Pegar o nome """
+        return self.__nome
+
+    def getTipo(self):
+        """ Pegar o tipo de pessoa "PF" ou "PJ" """
+        return self.__tipo
+
+    def getDocumento(self):
+        """ Pegar o número do documento """
+        return self.__documento
+
+    ''' ### '''
+    ''' SET '''
+    ''' ### '''
+    
+    def setId(self, id):
+        """ Setar o id """
+        self.__id = id
+
+    def setLogin(self, login):
+        """ Setar o login """
+        self.__login = login
+
+    def setSenha(self, senha):
+        """ Setar a senha """
+        self.__senha = senha
+
+    def setNome(self, nome):
+        """ Setar o nome """
+        self.__nome = nome
+
+    def setTipo(self, tipo):
+        """ Setar o tipo de pessoa "PF" ou "PJ" """
+        self.__tipo = tipo
+
+    def setDocumento(self, documento):
+        """ Setar o número do documento """
+        self.__documento = documento
