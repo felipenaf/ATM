@@ -1,6 +1,7 @@
 from login import Login
 from connection import Connection
-from clienteDao import ClienteDao
+from pessoa import Pessoa
+from pessoaDao import PessoaDao
 from contaCorrente import ContaCorrente
 from os import system
 from funcoes import *
@@ -13,50 +14,55 @@ senha = getpass.getpass('Senha: ')
 result = Login.autenticacao(login, senha)
 
 # Usuário Administrador
-if login == 'admin' and senha == 'admin':
+while login == 'admin' and senha == 'admin':
     msgAdmin('Administrador')
     teclado = ''
-    opc = inputOpc(teclado, user, 5, msgAdmin)
+    opc = inputOpc(teclado, 'Administrador', 5, msgAdmin)
 
     if opc == '1':
-        c = Cliente()
-        c.setCpf(input('CPF: '))
-        c.setNome(input('NOME: '))
-        c.setIdade(input('IDADE: '))
-        c.setSenha(input('SENHA: '))
+        p = Pessoa()
+        print('\nDados do cliente: \n')
+        p.setLogin(input('Login: '))
+        p.setSenha(getpass.getpass('Senha: '))
+        
+        p.setNome(input('Nome: '))
+        p.setTipo(input('Tipo de documento ("PF" ou "PJ"): '))
+        p.setDocumento(input('Número do documento: '))
+        pDao = PessoaDao()
+        pDao.cadastrar(p)
+        pass
 
-        cDao = ClienteDao()
-        cDao.cadastrar(c)
     elif opc == '2':
-        cDao = ClienteDao()
-        result = cDao.listar()
+        pDao = PessoaDao()
+        result = pDao.listar()
         print('\n')
         for linha in result:                
             print('\tNome : ' , linha[2], '\n', 
                 '\tIdade: ' , linha[3], '\n', 
                 '\tCPF  : ', linha[1], '\n')
+        time.sleep(3)
             
-    elif opc == '3':
-        cDao = ClienteDao()
-        result = cDao.listar()
-        print('\n')
-        for linha in result:                
-            print('\tID   : ' , linha[0], '\n',
-                '\tNome : ' , linha[2], '\n', 
-                '\tIdade: ' , linha[3], '\n', 
-                '\tCPF  : ', linha[1], '\n')
+    # elif opc == '3':
+    #     cDao = ClienteDao()
+    #     result = cDao.listar()
+    #     print('\n')
+    #     for linha in result:                
+    #         print('\tID   : ' , linha[0], '\n',
+    #             '\tNome : ' , linha[2], '\n', 
+    #             '\tIdade: ' , linha[3], '\n', 
+    #             '\tCPF  : ', linha[1], '\n')
         
-        c = Cliente()
-        c.setId(int(input('Informe o id do usuário a ser excluído: ')))
-        print(c.getId())
-        cDao.excluir(c.getId())
+    #     c = Cliente()
+    #     c.setId(int(input('Informe o id do usuário a ser excluído: ')))
+    #     print(c.getId())
+    #     cDao.excluir(c.getId())
 
-    elif opc == '4':
-        pass
-    elif opc == '5':
-        print('\nEncerrando seção ...')
-        time.sleep(2)
-        quit()
+    # elif opc == '4':
+    #     pass
+    # elif opc == '5':
+    #     print('\nEncerrando seção ...')
+    #     time.sleep(2)
+    #     quit()
 
 # Usuário comum (Cliente)
 while result != True:
@@ -67,7 +73,7 @@ while result != True:
     senha = getpass.getpass('Senha: ')
     result = Login.autenticacao(login, senha)
 else:
-    user = ClienteDao.getByLoginSenha(login, senha)
+    user = PessoaDao.getByLoginSenha(login, senha)
 
     msgBemVindo(user[2])
     print(user)
