@@ -1,5 +1,6 @@
-from cliente import Cliente
+from pessoa import Pessoa
 from connection import Connection
+import time
 
 class PessoaDao():
 
@@ -7,7 +8,7 @@ class PessoaDao():
         try:
             con = Connection.instance()
             cursor = con.cursor()
-            cursor.execute("SELECT * FROM cliente WHERE cpf = %s and senha = %s;", (login, senha))
+            cursor.execute("SELECT * FROM pessoa WHERE login = %s and senha = %s;", (login, senha))
         except:
             print('\nAlgo deu errado.')
         else:
@@ -16,25 +17,29 @@ class PessoaDao():
             con.close()
             
 
-    def cadastrar(self, cliente):
+    def cadastrar(self, pessoa):
         try:
             con = Connection.instance()
             cursor = con.cursor()
-            dados = (cliente.getCpf(), cliente.getNome(), cliente.getIdade(), cliente.getSenha())
-            cursor.execute("INSERT INTO cliente (cpf, nome, idade, senha) VALUES (%s, %s, %s, %s);", dados)
+            dados = (pessoa.getLogin(), pessoa.getSenha(), pessoa.getNome())
+            cursor.execute("INSERT INTO pessoa (login, senha, nome) VALUES (%s, %s, %s);", dados)
+            con.commit()
+            dadosDoc = (pessoa.getTipo(), pessoa.getDocumento(), cursor.lastrowid)
+            cursor.execute("INSERT INTO documento (tipo, numero, idPessoa) VALUES (%s, %s, %s);", dadosDoc)
             con.commit()
         except:
-            print('Não foi possível realizar o cadastro!\n')
+            print('\nNão foi possível realizar o cadastro!\n')
         else:
-            print('Cliente cadastrado com sucesso!\n')
+            print('\nCliente cadastrado com sucesso!\n')
         finally:
+            time.sleep(3)
             con.close()
 
     def listar(self):
         try:
             con = Connection.instance()
             cursor = con.cursor()
-            cursor.execute("SELECT * FROM cliente;")
+            cursor.execute("SELECT * FROM pessoa;")
         except:
             print('\nAlgo deu errado.')
         else:
