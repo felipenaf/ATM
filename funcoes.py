@@ -54,8 +54,6 @@ def inputOpc(teclado, user, qtdOpc, msg):
   while (isInt(teclado) == False) or (int(teclado) > qtdOpc) or (int(teclado) <= 0):
     if teclado != '':
       print('Digite uma opção válida!')
-    time.sleep(2)
-    # msg(user[2])
     teclado = input('Opção: ')
   else:
     return teclado

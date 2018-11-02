@@ -8,7 +8,7 @@ class PessoaDao():
         try:
             con = Connection.instance()
             cursor = con.cursor()
-            cursor.execute("SELECT * FROM pessoa WHERE login = %s and senha = %s;", (login, senha))
+            cursor.execute("SELECT * from atm.pessoa WHERE login = %s and senha = %s;", (login, senha))
         except:
             print('\nAlgo deu errado.')
         else:
@@ -39,7 +39,7 @@ class PessoaDao():
         try:
             con = Connection.instance()
             cursor = con.cursor()
-            cursor.execute("SELECT * FROM pessoa;")
+            cursor.execute("SELECT * from atm.pessoa INNER JOIN atm.documento on atm.documento.idPessoa = atm.pessoa.id;")
         except:
             print('\nAlgo deu errado.')
         else:
@@ -48,15 +48,18 @@ class PessoaDao():
         finally:
             con.close()
 
-    def excluir(self, id):
+    def excluir(self, pessoa):
         try:
             con = Connection.instance()
             cursor = con.cursor()
-            cursor.execute("DELETE FROM atm.cliente WHERE id = %s;", id)
+            cursor.execute("DELETE FROM atm.documento WHERE idPessoa = %s;", (pessoa.getId(),))
+            con.commit()
+            cursor.execute("DELETE FROM atm.pessoa WHERE id = %s;", (pessoa.getId(),))
             con.commit()
         except:
-            print('Não foi possível realizar a exclusão!\n')
+            print('\nNão foi possível realizar a exclusão!\n')
         else:
-            print('Cliente excluído com sucesso!\n')
+            print('\nCliente excluído com sucesso!\n')
         finally:
+            time.sleep(3)
             con.close()

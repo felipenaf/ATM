@@ -20,5 +20,4 @@ class Login(object):
         if resultado == '1':
             return True
         else:
-            print(login, senha)
             return False
