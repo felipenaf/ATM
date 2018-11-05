@@ -17,7 +17,18 @@ CREATE TABLE atm.documento (
     numero varchar(18) NOT NULL,
     idPessoa int(5) NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (idPessoa) REFERENCES atm.pessoa(id)
+    FOREIGN KEY (idPessoa) REFERENCES atm.pessoa (id)
+);
+
+CREATE TABLE atm.contaCorrente (
+    id int(5) AUTO_INCREMENT,
+    numero VARCHAR(11) NOT NULL,
+    saldo decimal(18,2) NOT NULL,
+    agencia int(4) NOT NULL,
+    idPessoa int(5) NOT NULL,
+    UNIQUE (numero),
+    PRIMARY KEY (id),
+    FOREIGN KEY (idPessoa) REFERENCES atm.pessoa (id)
 );
 
 INSERT INTO atm.pessoa (login, senha, nome) VALUES ('admin', 'admin', 'Administrador');
