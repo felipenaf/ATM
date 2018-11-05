@@ -1,6 +1,14 @@
-""" 
+"""
     Tratar quantidade de caracteres que o cliente digita
+    
     Implementar de forma correta os try except em todas as classes
+
+    Só aparecer a confirmação de exclusão caso o id exista no banco
+
+    Editar pendente
+
+    ref: https://wiki.python.org.br/GeradorDeCpf
+
 
 """
 
@@ -13,6 +21,7 @@ from os import system
 from funcoes import *
 import getpass
 import time
+import gerador
 
 msgLogar()
 login = input('Login: ')
@@ -35,18 +44,21 @@ else:
 
         if opc == '1':
             p = Pessoa()
+            c = ContaCorrente()
             print('\nDados do cliente: \n')
+            p.setNome(input('Nome: '))
             p.setLogin(input('Login: '))
             p.setSenha(getpass.getpass('Senha: '))
-            
-            p.setNome(input('Nome: '))
-            p.setTipo(input('Tipo de documento ("PF" ou "PJ"): '))
+            p.setTipo(input('Tipo de pessoa ("PF" ou "PJ"): '))
             p.setDocumento(input('Número do documento: '))
+            c.setNumeroAgencia(input('Agência: '))
+            c.setNumeroCC(gerador.nrConta())
+            c.depositar(float(input('Informar valor a ser inserido na conta: ')))
 
             confirmar = input('\nDigite <enter> pra confirmar ou "q" para cancelar ')
             if (confirmar != 'q'):
                 pDao = PessoaDao()
-                pDao.cadastrar(p)
+                pDao.cadastrar(p, c)
             else:
                 print('\nOperação cancelada !!')
                 time.sleep(2)
@@ -55,30 +67,35 @@ else:
             pDao = PessoaDao()
             result = pDao.listar()
             print('\n')
-            for linha in result:                
-                print('\tNome         : ', linha[3], '\n', 
-                    '\tTipo         : ', linha[5], '\n', 
-                    '\tNr documento : ', linha[6], '\n',
-                    '\tLogin        : ', linha[1], '\n')
+            for linha in result:
+                print('\tNome     : ', linha[3], '\n', 
+                    '\tTipo     : ', linha[5], '\n', 
+                    '\tDocumento: ', linha[6], '\n',
+                    '\tLogin    : ', linha[1], '\n',
+                    '\tAgência  : ', linha[11], '\n',
+                    '\tC/C      : ', linha[9], '\n')
             input("Pressione <enter> para voltar")
                 
         elif opc == '3':
             pDao = PessoaDao()
             result = pDao.listar()
             print('\n')
-            for linha in result:                
-                print('\tID           : ', linha[0], '\n',
-                    '\tNome         : ', linha[3], '\n', 
-                    '\tTipo         : ', linha[5], '\n', 
-                    '\tNr documento : ', linha[6], '\n',
-                    '\tLogin        : ', linha[1], '\n')
+            for linha in result:
+                print('\tID       : ', linha[0], '\n',
+                    '\tNome     : ', linha[3], '\n', 
+                    '\tTipo     : ', linha[5], '\n', 
+                    '\tDocumento: ', linha[6], '\n',
+                    '\tLogin    : ', linha[1], '\n',
+                    '\tAgência  : ', linha[11], '\n',
+                    '\tC/C      : ', linha[9], '\n')
             
             p = Pessoa()
             p.setId(input('Informe o id do usuário a ser excluído: '))
             if p.getId() != '':
                 pDao.excluir(p)
             else:
-                print('Não foi informado nenhum valor !!')
+                print('\nNão foi informado nenhum valor !!')
+                time.sleep(2)
 
         elif opc == '4':
             pass
@@ -87,13 +104,30 @@ else:
             time.sleep(2)
             quit()
     else:
+        teclado = ''
         result = Login.autenticacao(login, senha)
-        
-    
         user = PessoaDao.getByLoginSenha(login, senha)
 
-        msgBemVindo(user[2])
-        print(user)
+        while result == True:
+            msgBemVindo(user[3])
+            opc = inputOpc(teclado, user[3], 4, msgBemVindo)
+
+            if opc == '1':
+                pass
+
+            elif opc == '2':
+                pass
+
+            elif opc == '3':
+                print('\nSeu saldo em conta é de R$', user[10])
+                input('\nVoltar !')
+
+            elif opc == '4':
+                print('\nEncerrando seção ...')
+                time.sleep(2)
+                quit()
+
+        
 
 
 
