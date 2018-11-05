@@ -50,6 +50,13 @@ def isInt(value):
     return False
   return True
 
+def isFloat(value):
+  try:
+    float(value)
+  except ValueError:
+    return False
+  return True
+
 def inputOpc(teclado, user, qtdOpc, msg):
   while (isInt(teclado) == False) or (int(teclado) > qtdOpc) or (int(teclado) <= 0):
     if teclado != '':
