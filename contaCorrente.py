@@ -5,31 +5,45 @@ class ContaCorrente(object):
 
     __numeroCC = ''
     __saldo = 0
+    __numeroAgencia = ''
 
-    def setNumeroCC(self, numeroCC):
-        """ Setar o número da conta """
-        
-        self.__numeroCC = numeroCC
-
+    '''
+        ### 
+        GET 
+        ### 
+    '''
+    
     def getNumeroCC(self):
         """ Setar o número da conta """
-
         return self.__numeroCC
-
-    def setStatus(self, status):
-        """ Setar o número da agência """
-
-        self.__status = status
-
-    def getStatus(self):
-        """ Pegar o número da agência """
-
-        return self.__status
 
     def getSaldo(self):
         """ Pegar o saldo """
-
         return self.__saldo
+
+    def getNumeroAgencia(self):
+        """ Pegar o numero da agência """
+        return self.__numeroAgencia
+
+    '''
+        ### 
+        SET 
+        ### 
+    '''
+
+    def setNumeroCC(self, numeroCC):
+        """ Setar o número da conta """
+        self.__numeroCC = numeroCC
+
+    def setNumeroAgencia(self, numeroAgencia):
+        """ Setar o número da agência """
+        self.__numeroAgencia = numeroAgencia
+
+    '''
+        ### 
+        DEMAIS
+        ### 
+    '''
 
     def sacar(self, valor):
         """ Sacar o dinheiro """
