@@ -23,7 +23,7 @@ CREATE TABLE atm.documento (
 CREATE TABLE atm.contaCorrente (
     id int(5) AUTO_INCREMENT,
     numero VARCHAR(11) NOT NULL,
-    saldo decimal(18,2) NOT NULL,
+    saldo float(18,2) NOT NULL,
     agencia int(4) NOT NULL,
     idPessoa int(5) NOT NULL,
     UNIQUE (numero),

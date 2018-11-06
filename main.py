@@ -1,15 +1,17 @@
 """
-    Tratar quantidade de caracteres que o cliente digita
+    Tratar quantidade de caracteres que o cliente digita !! TARTAR ESSE ERRO
     
     Implementar de forma correta os try except em todas as classes
 
-    Só aparecer a confirmação de exclusão caso o id exista no banco
+    Só aparecer a confirmação de exclusão caso o id exista no banco !! TARTAR ESSE ERRO
 
     Editar pendente
 
+    Quando deixa o float(input()) vazio da erro !! TARTAR ESSE ERRO
+
+    salvar no banco de dados palavras todas minusculas
+
     ref: https://wiki.python.org.br/GeradorDeCpf
-
-
 """
 
 from login import Login
@@ -36,6 +38,7 @@ while result != True:
     senha = getpass.getpass('Senha: ')
     result = Login.autenticacao(login, senha)
 else:
+    """ Usuário Administrador """
     user = PessoaDao.getByLoginSenha(login, senha)    
     while user[1] == 'admin' and user[2] == 'admin':
         msgAdmin('Administrador')
@@ -104,6 +107,7 @@ else:
             time.sleep(2)
             quit()
     else:
+        """ Usuário Comum """
         teclado = ''
         result = Login.autenticacao(login, senha)
         user = PessoaDao.getByLoginSenha(login, senha)
@@ -111,16 +115,29 @@ else:
         while result == True:
             msgBemVindo(user[3])
             opc = inputOpc(teclado, user[3], 4, msgBemVindo)
+            
 
             if opc == '1':
                 pass
 
             elif opc == '2':
-                pass
+                c = ContaCorrente()
+                saldo = c.setSaldo(user[10])
+                vl = float(input('\nValor a ser sacado: '))
+
+                sacado = c.sacar(vl)
+
+                if(sacado == True):
+                    print('\nSaque realizado com sucesso')
+                    print('\nAgora seu saldo é de R$', c.getSaldo())
+
+                input()
+
+
 
             elif opc == '3':
                 print('\nSeu saldo em conta é de R$', user[10])
-                input('\nVoltar !')
+                input('\nPressione <enter> para voltar')
 
             elif opc == '4':
                 print('\nEncerrando seção ...')

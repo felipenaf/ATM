@@ -39,6 +39,10 @@ class ContaCorrente(object):
         """ Setar o número da agência """
         self.__numeroAgencia = numeroAgencia
 
+    def setSaldo(self, saldo):
+        """ Setar o saldo """
+        self.__saldo = saldo
+
     '''
         ### 
         DEMAIS
@@ -49,11 +53,12 @@ class ContaCorrente(object):
         """ Sacar o dinheiro """
         
         if valor <= 0:
-            print('Informe um valor a ser sacado')
+            print('\nInforme um valor maior que zero')
         elif self.__saldo < valor or self.__saldo <= 0:
-            print('Você não tem saldo suficiente para realizar o saque')
+            print('\nVocê não tem saldo suficiente para realizar o saque')
         else:
             self.__saldo -= valor
+            return True
 
     def depositar(self, valor):
         """ Depositar o dinheiro """
@@ -61,4 +66,4 @@ class ContaCorrente(object):
         if valor > 0:
             self.__saldo += valor
         else:
-            print('Informe um valor a ser depositado')
+            print('\nInforme um valor a ser depositado')
