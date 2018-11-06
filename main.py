@@ -123,8 +123,9 @@ else:
             elif opc == '2':
                 c = ContaCorrente()
                 saldo = c.setSaldo(user[10])
-                vl = float(input('\nValor a ser sacado: '))
-
+                teclado = ''
+                vl = inputValor(teclado)
+                ''' parei aqui !!! '''
                 sacado = c.sacar(vl)
 
                 if(sacado == True):
