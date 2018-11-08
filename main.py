@@ -122,13 +122,18 @@ else:
             opc = inputOpc(teclado, user[3], 4, msgBemVindo)
             
             if opc == '1':
-                pass
+                teclado = ''
+                vl = inputFloat(teclado, "Informe um valor a ser depositado: ")
+                depositado = c.depositar(vl)
+                if depositado == True:
+                    p.atualizaSaldo(c, "Depósito")
 
             elif opc == '2':
                 teclado = ''
-                vl = inputFloat(teclado)
-                c.sacar(vl)
-                p.atualizaSaldo(c)
+                vl = inputFloat(teclado, "Informe um valor a ser sacado: ")
+                sacado = c.sacar(vl)
+                if sacado == True:
+                    p.atualizaSaldo(c,"Saque")
 
             elif opc == '3':
                 print('\nSeu saldo em conta é de R$', c.getSaldo())

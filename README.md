@@ -18,6 +18,18 @@
 - Conta Corrente
 - Conexão
 
+## O que falta 
+
+- Tratar quantidade de caracteres que o cliente digita  
+- Implementar de forma correta os try except em todas as classes
+- Só aparecer a confirmação de exclusão caso o id exista no banco
+- Editar pendente
+- Quando deixa o float(input()) vazio da erro
+- salvar no banco de dados palavras todas minusculas
+
+
+- ref: https://wiki.python.org.br/GeradorDeCpf
+
 
 
 [![N|Solid](https://cldup.com/dTxpPi9lDf.thumb.png)](https://nodesource.com/products/nsolid)

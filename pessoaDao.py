@@ -78,7 +78,7 @@ class PessoaDao():
     def editar(self):
         pass
 
-    def atualizaSaldo(self, conta):
+    def atualizaSaldo(self, conta, msg):
         try:
             con = Connection.instance()
             cursor = con.cursor()
@@ -88,6 +88,7 @@ class PessoaDao():
         except Exception as e:
             print('\nErro!!\n', e)
         else:
-            print('\nSaque realizado com sucesso!\n')
+            print('\n',msg, 'realizado com sucesso!\n')
         finally:
+            con.close() 
             input('\nPressione <enter> para concluir')

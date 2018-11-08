@@ -61,8 +61,10 @@ class ContaCorrente(object):
         
         if valor <= 0:
             print('\nInforme um valor maior que zero')
+            input('\nPressione <enter> para voltar')
         elif self.__saldo < valor or self.__saldo <= 0:
             print('\nVocê não tem saldo suficiente para realizar o saque')
+            input('\nPressione <enter> para voltar')
         else:
             self.__saldo -= valor
             return True
@@ -72,5 +74,6 @@ class ContaCorrente(object):
 
         if valor > 0:
             self.__saldo += valor
+            return True
         else:
             print('\nInforme um valor a ser depositado')
