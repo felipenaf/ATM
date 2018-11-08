@@ -65,10 +65,18 @@ def inputOpc(teclado, user, qtdOpc, msg):
   else:
     return teclado
 
+def inputFloat(teclado):
+  while (isFloat(teclado) == False):
+    if teclado != '':
+      print('Digite um número!')
+    teclado = input("Informe um valor a ser sacado: ")
+  else:
+    return float(teclado) 
+
 def inputValor(teclado):
     while (isFloat(teclado) == False):
-        print('\nInforme um número válido')
-        input('\nValor a ser sacado: ')
+      print('\nInforme um número válido')
+      teclado = input('\nValor a ser sacado: ')
     else:
-        return teclado
+      return teclado
     

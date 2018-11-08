@@ -112,32 +112,26 @@ else:
         result = Login.autenticacao(login, senha)
         user = PessoaDao.getByLoginSenha(login, senha)
 
+        c = ContaCorrente()
+        p = PessoaDao()
+        c.setSaldo(user[10])
+        c.setIdPessoa(user[0])
+
         while result == True:
             msgBemVindo(user[3])
             opc = inputOpc(teclado, user[3], 4, msgBemVindo)
             
-
             if opc == '1':
                 pass
 
             elif opc == '2':
-                c = ContaCorrente()
-                saldo = c.setSaldo(user[10])
                 teclado = ''
-                vl = inputValor(teclado)
-                ''' parei aqui !!! '''
-                sacado = c.sacar(vl)
-
-                if(sacado == True):
-                    print('\nSaque realizado com sucesso')
-                    print('\nAgora seu saldo é de R$', c.getSaldo())
-
-                input()
-
-
+                vl = inputFloat(teclado)
+                c.sacar(vl)
+                p.atualizaSaldo(c)
 
             elif opc == '3':
-                print('\nSeu saldo em conta é de R$', user[10])
+                print('\nSeu saldo em conta é de R$', c.getSaldo())
                 input('\nPressione <enter> para voltar')
 
             elif opc == '4':

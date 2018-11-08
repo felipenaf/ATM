@@ -77,3 +77,17 @@ class PessoaDao():
 
     def editar(self):
         pass
+
+    def atualizaSaldo(self, conta):
+        try:
+            con = Connection.instance()
+            cursor = con.cursor()
+            dados = (conta.getSaldo(), conta.getIdPessoa())
+            cursor.execute("update atm.contaCorrente set saldo = %s where idPessoa = %s;", dados)
+            con.commit()
+        except Exception as e:
+            print('\nErro!!\n', e)
+        else:
+            print('\nSaque realizado com sucesso!\n')
+        finally:
+            input('\nPressione <enter> para concluir')

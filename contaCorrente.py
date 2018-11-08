@@ -6,6 +6,7 @@ class ContaCorrente(object):
     __numeroCC = ''
     __saldo = 0
     __numeroAgencia = ''
+    __idPessoa = 0
 
     '''
         ### 
@@ -25,6 +26,9 @@ class ContaCorrente(object):
         """ Pegar o numero da agência """
         return self.__numeroAgencia
 
+    def getIdPessoa(self):
+        return self.__idPessoa
+
     '''
         ### 
         SET 
@@ -42,6 +46,9 @@ class ContaCorrente(object):
     def setSaldo(self, saldo):
         """ Setar o saldo """
         self.__saldo = saldo
+
+    def setIdPessoa(self, idPessoa):
+        self.__idPessoa = idPessoa
 
     '''
         ### 
