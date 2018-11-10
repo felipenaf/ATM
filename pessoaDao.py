@@ -22,6 +22,19 @@ class PessoaDao():
         finally:
             con.close()
 
+    def getById(self, id):
+        try:
+            con = Connection.instance()
+            cursor = con.cursor()
+            cursor.execute("select * from atm.pessoa where id = %s;", (id, ))
+        except Exception as e:
+            print('\nAlgo deu errado.\n', e)
+        else:
+            return cursor.fetchone()
+        finally:
+            con.close()
+
+
     def cadastrar(self, pessoa, conta):
         try:
             con = Connection.instance()
@@ -29,7 +42,7 @@ class PessoaDao():
             dados = (pessoa.getLogin(), pessoa.getSenha(), pessoa.getNome())
             cursor.execute("INSERT INTO pessoa (login, senha, nome) VALUES (%s, %s, %s);", dados)
             ultimoId = cursor.lastrowid
-            dadosDoc = (pessoa.getTipo(), pessoa.getDocumento(), ultimoId)
+            dadosDoc = (pessoa.getTipo().lower(), pessoa.getDocumento(), ultimoId)
             cursor.execute("INSERT INTO documento (tipo, numero, idPessoa) VALUES (%s, %s, %s);", dadosDoc)
             dadosConta = (conta.getNumeroCC(), conta.getNumeroAgencia(), conta.getSaldo(), ultimoId)
             cursor.execute("INSERT INTO contaCorrente (numero, agencia, saldo, idPessoa) VALUES (%s, %s, %s, %s);", dadosConta)
@@ -41,7 +54,6 @@ class PessoaDao():
             print('\nNúmero da Agência:', conta.getNumeroAgencia())
             print('\nNúmero da Conta:', conta.getNumeroCC())
         finally:
-            time.sleep(3)
             con.close()
             input('\nPressione <enter> para concluir')
 

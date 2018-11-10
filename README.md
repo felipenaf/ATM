@@ -20,13 +20,9 @@
 
 ## O que falta 
 
-- Tratar quantidade de caracteres que o cliente digita  
+- Tratar quantidade de caracteres que o cliente digita  EM PROGRESSO!!
+- Editar PENDENTE
 - Implementar de forma correta os try except em todas as classes
-- Só aparecer a confirmação de exclusão caso o id exista no banco
-- Editar pendente
-- Quando deixa o float(input()) vazio da erro
-- salvar no banco de dados palavras todas minusculas
-
 
 - ref: https://wiki.python.org.br/GeradorDeCpf
 

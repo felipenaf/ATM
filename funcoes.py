@@ -6,7 +6,7 @@ def msgBemVindo(nome):
       
   system("clear")
 
-  print ("""\t\t\t## Bem vindo Sr(a).""", nome, """
+  print ("""\t\t\t## Bem vindo """, nome.capitalize(), """
         \t\tEscolha uma das opções a seguir
         \t\t###################################
         \t\t### 1 ## Deposito.              ###
@@ -28,11 +28,11 @@ def msgLogar():
             \t\t###################################
       """)
 
-def msgAdmin(nome):
+def msgAdmin():
       
   system("clear")
 
-  print ("""\t\t\t## Bem vindo Sr(a).""", nome, """
+  print ("""\t\t\t## Bem vindo Administrador
             \t\tEscolha uma das opções a seguir
             \t\t###################################
             \t\t### 1 ## Cadastrar              ###
@@ -57,7 +57,7 @@ def isFloat(value):
     return False
   return True
 
-def inputOpc(teclado, user, qtdOpc, msg):
+def inputOpc(teclado, qtdOpc, msg):
   while (isInt(teclado) == False) or (int(teclado) > qtdOpc) or (int(teclado) <= 0):
     if teclado != '':
       print('Digite uma opção válida!')
@@ -71,12 +71,13 @@ def inputFloat(teclado, msg):
       print('Digite um número!')
     teclado = input(msg)
   else:
-    return float(teclado) 
+    return float(teclado)
 
-def inputValor(teclado):
-    while (isFloat(teclado) == False):
-      print('\nInforme um número válido')
-      teclado = input('\nValor a ser sacado: ')
-    else:
-      return teclado
-    
+def validaInput(teclado, msg, min, aviso):
+  while (len(teclado) <= min):
+    teclado = input(msg)
+    if teclado == '':
+      print(aviso)
+  else:
+    return teclado
+

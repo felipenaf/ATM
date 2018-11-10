@@ -1,19 +1,3 @@
-"""
-    Tratar quantidade de caracteres que o cliente digita !! TARTAR ESSE ERRO
-    
-    Implementar de forma correta os try except em todas as classes
-
-    Só aparecer a confirmação de exclusão caso o id exista no banco !! TARTAR ESSE ERRO
-
-    Editar pendente
-
-    Quando deixa o float(input()) vazio da erro !! TARTAR ESSE ERRO
-
-    salvar no banco de dados palavras todas minusculas
-
-    ref: https://wiki.python.org.br/GeradorDeCpf
-"""
-
 from login import Login
 from connection import Connection
 from pessoa import Pessoa
@@ -39,40 +23,43 @@ while result != True:
     result = Login.autenticacao(login, senha)
 else:
     """ Usuário Administrador """
-    user = PessoaDao.getByLoginSenha(login, senha)    
+    user = PessoaDao.getByLoginSenha(login, senha)
+
+    p = Pessoa()
+    c = ContaCorrente()
+    pDao = PessoaDao()
+
     while user[1] == 'admin' and user[2] == 'admin':
-        msgAdmin('Administrador')
+        msgAdmin()
         teclado = ''
-        opc = inputOpc(teclado, 'Administrador', 5, msgAdmin)
+        opc = inputOpc(teclado, 5, msgAdmin)
 
         if opc == '1':
-            p = Pessoa()
-            c = ContaCorrente()
-            print('\nDados do cliente: \n')
-            p.setNome(input('Nome: '))
+            
+            print('\nDados do cliente:\n')
+            p.setNome(validaInput(teclado,"Nome: ",5, 'Digite um número!'))
             p.setLogin(input('Login: '))
             p.setSenha(getpass.getpass('Senha: '))
             p.setTipo(input('Tipo de pessoa ("PF" ou "PJ"): '))
             p.setDocumento(input('Número do documento: '))
             c.setNumeroAgencia(input('Agência: '))
             c.setNumeroCC(gerador.nrConta())
-            c.depositar(float(input('Informar valor a ser inserido na conta: ')))
+            c.depositar(inputFloat(teclado, "Valor inicial da conta: "))
 
             confirmar = input('\nDigite <enter> pra confirmar ou "q" para cancelar ')
+
             if (confirmar != 'q'):
-                pDao = PessoaDao()
                 pDao.cadastrar(p, c)
             else:
                 print('\nOperação cancelada !!')
                 time.sleep(2)
 
         elif opc == '2':
-            pDao = PessoaDao()
             result = pDao.listar()
             print('\n')
             for linha in result:
-                print('\tNome     : ', linha[3], '\n', 
-                    '\tTipo     : ', linha[5], '\n', 
+                print('\tNome     : ', linha[3].capitalize(), '\n', 
+                    '\tTipo     : ', linha[5].upper(), '\n', 
                     '\tDocumento: ', linha[6], '\n',
                     '\tLogin    : ', linha[1], '\n',
                     '\tAgência  : ', linha[11], '\n',
@@ -80,21 +67,24 @@ else:
             input("Pressione <enter> para voltar")
                 
         elif opc == '3':
-            pDao = PessoaDao()
             result = pDao.listar()
             print('\n')
             for linha in result:
                 print('\tID       : ', linha[0], '\n',
-                    '\tNome     : ', linha[3], '\n', 
-                    '\tTipo     : ', linha[5], '\n', 
+                    '\tNome     : ', linha[3].capitalize(), '\n', 
+                    '\tTipo     : ', linha[5].upper(), '\n', 
                     '\tDocumento: ', linha[6], '\n',
                     '\tLogin    : ', linha[1], '\n',
                     '\tAgência  : ', linha[11], '\n',
                     '\tC/C      : ', linha[9], '\n')
             
-            p = Pessoa()
             p.setId(input('Informe o id do usuário a ser excluído: '))
-            if p.getId() != '':
+
+            idVerificado = pDao.getById(p.getId())
+            if idVerificado == None:
+                print('\nUsuário não existe em nosso banco de dados!!')
+                input('\nPressione <enter> para voltar')
+            elif p.getId() != '':
                 pDao.excluir(p)
             else:
                 print('\nNão foi informado nenhum valor !!')
@@ -102,6 +92,7 @@ else:
 
         elif opc == '4':
             pass
+
         elif opc == '5':
             print('\nEncerrando seção ...')
             time.sleep(2)
@@ -113,27 +104,30 @@ else:
         user = PessoaDao.getByLoginSenha(login, senha)
 
         c = ContaCorrente()
-        p = PessoaDao()
+        p = Pessoa()
+        pDao = PessoaDao()
+
+        p.setNome(user[3])
         c.setSaldo(user[10])
         c.setIdPessoa(user[0])
 
         while result == True:
-            msgBemVindo(user[3])
-            opc = inputOpc(teclado, user[3], 4, msgBemVindo)
+            msgBemVindo(p.getNome())
+            opc = inputOpc(teclado, 4, msgBemVindo)
             
             if opc == '1':
                 teclado = ''
                 vl = inputFloat(teclado, "Informe um valor a ser depositado: ")
                 depositado = c.depositar(vl)
                 if depositado == True:
-                    p.atualizaSaldo(c, "Depósito")
+                    pDao.atualizaSaldo(c, "Depósito")
 
             elif opc == '2':
                 teclado = ''
                 vl = inputFloat(teclado, "Informe um valor a ser sacado: ")
                 sacado = c.sacar(vl)
                 if sacado == True:
-                    p.atualizaSaldo(c,"Saque")
+                    pDao.atualizaSaldo(c,"Saque")
 
             elif opc == '3':
                 print('\nSeu saldo em conta é de R$', c.getSaldo())
