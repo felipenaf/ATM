@@ -2,7 +2,6 @@ import random
 from time import time as t
 
 def xrange(x):
-
     return iter(range(x))
 
 def nrConta():                                                                                             

@@ -20,8 +20,9 @@
 
 ## O que falta 
 
-- Tratar quantidade de caracteres que o cliente digita  EM PROGRESSO!!
 - Editar PENDENTE
+- Opção depósito não exibe mensagem de confirmação
+- Exibir o nome com a primeira maiuscula, mas todos os nomes caso haja mais que um
 - Implementar de forma correta os try except em todas as classes
 
 - ref: https://wiki.python.org.br/GeradorDeCpf

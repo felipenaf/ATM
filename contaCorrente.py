@@ -1,4 +1,5 @@
 """ import de libs """
+from funcoes import voltar
 
 class ContaCorrente(object):
     """ Classe ContaCorrente """
@@ -61,10 +62,10 @@ class ContaCorrente(object):
         
         if valor <= 0:
             print('\nInforme um valor maior que zero')
-            input('\nPressione <enter> para voltar')
+            voltar()
         elif self.__saldo < valor or self.__saldo <= 0:
             print('\nVocê não tem saldo suficiente para realizar o saque')
-            input('\nPressione <enter> para voltar')
+            voltar()
         else:
             self.__saldo -= valor
             return True
@@ -76,4 +77,5 @@ class ContaCorrente(object):
             self.__saldo += valor
             return True
         else:
-            print('\nInforme um valor a ser depositado')
+            print('\nInforme um valor maior que zero')
+            voltar()

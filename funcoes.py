@@ -57,27 +57,68 @@ def isFloat(value):
     return False
   return True
 
-def inputOpc(teclado, qtdOpc, msg):
+def inputOpc(qtdOpc, msg):
+  teclado = ''
   while (isInt(teclado) == False) or (int(teclado) > qtdOpc) or (int(teclado) <= 0):
-    if teclado != '':
-      print('Digite uma opção válida!')
     teclado = input('Opção: ')
+    if (isInt(teclado) == False) or (int(teclado) > qtdOpc) or (int(teclado) <= 0):
+      print('Digite uma opção válida!')
   else:
     return teclado
 
-def inputFloat(teclado, msg):
+def inputFloat(msg):
+  teclado = ''
   while (isFloat(teclado) == False):
-    if teclado != '':
-      print('Digite um número!')
     teclado = input(msg)
+    if isFloat(teclado) == False:
+      print('Digite um número!')
   else:
     return float(teclado)
 
-def validaInput(teclado, msg, min, aviso):
-  while (len(teclado) <= min):
+def validaInput(msg, min, aviso):
+  teclado = ''
+  while (len(teclado) < min):
     teclado = input(msg)
-    if teclado == '':
+    if len(teclado) < min:
       print(aviso)
   else:
     return teclado
 
+def validaSenha(msg, min, aviso):
+  teclado = ''
+  while (len(teclado) < min):
+    teclado = getpass.getpass(msg)
+    if len(teclado) < min:
+      print(aviso)
+  else:
+    return teclado
+
+def validaTipoPessoa(msg, aviso):
+  teclado = ''
+  while (teclado != 'pf' and teclado != 'pj'):
+    teclado = input(msg).lower()
+    if teclado != 'pf' and teclado != 'pj':
+      print(aviso)
+  else:
+    return teclado
+
+def validaDocumento(msg, aviso):
+  teclado = ''
+  while (not teclado.isdigit()):
+    teclado = input(msg)
+    if not teclado.isdigit():
+      print(aviso)
+  else:
+    return teclado
+
+def validaAgencia(msg, aviso):
+  teclado = ''
+  while (len(teclado) != 4 or not teclado.isdigit()):
+    teclado = input(msg)
+    if len(teclado) != 4 or not teclado.isdigit():
+      print(aviso)
+  else:
+    return teclado
+
+def voltar():
+  input("\nPressione <enter> para voltar")

@@ -15,7 +15,7 @@ senha = getpass.getpass('Senha: ')
 result = Login.autenticacao(login, senha)
 
 while result != True:
-    print("\nSenha incorreta")
+    print("\nLogin ou senha incorretos")
     time.sleep(2)
     msgLogar()
     login = input('Login: ')
@@ -31,20 +31,22 @@ else:
 
     while user[1] == 'admin' and user[2] == 'admin':
         msgAdmin()
-        teclado = ''
-        opc = inputOpc(teclado, 5, msgAdmin)
+        opc = inputOpc(5, msgAdmin)
 
         if opc == '1':
             
             print('\nDados do cliente:\n')
-            p.setNome(validaInput(teclado,"Nome: ",5, 'Digite um número!'))
-            p.setLogin(input('Login: '))
-            p.setSenha(getpass.getpass('Senha: '))
-            p.setTipo(input('Tipo de pessoa ("PF" ou "PJ"): '))
-            p.setDocumento(input('Número do documento: '))
-            c.setNumeroAgencia(input('Agência: '))
+            p.setNome(validaInput("Nome: ",5, "O nome deve possuir no mínimo 5 caracteres!"))
+            p.setLogin(validaInput("Login: ", 5, "O login deve possuir no mínimo 5 caracteres!"))
+            p.setSenha(validaSenha("Senha: ", 3, "A senha deve possuir no mínimo 3 caracteres!"))
+            p.setTipo(validaTipoPessoa('Tipo de pessoa ("PF" ou "PJ"): ', 'Informe "PF" ou "PJ" !!').lower())
+            if p.getTipo() == 'pf':
+                p.setDocumento(validaDocumento("CPF: ", "Digite apenas números"))
+            else:
+                p.setDocumento(validaDocumento("CNPJ: ", "Digite apenas números"))
+            c.setNumeroAgencia(validaAgencia("Agência: ", "Agência possui apenas 4 números"))
             c.setNumeroCC(gerador.nrConta())
-            c.depositar(inputFloat(teclado, "Valor inicial da conta: "))
+            c.depositar(inputFloat("Valor inicial da conta: "))
 
             confirmar = input('\nDigite <enter> pra confirmar ou "q" para cancelar ')
 
@@ -52,19 +54,22 @@ else:
                 pDao.cadastrar(p, c)
             else:
                 print('\nOperação cancelada !!')
-                time.sleep(2)
+                voltar()
 
         elif opc == '2':
             result = pDao.listar()
             print('\n')
             for linha in result:
                 print('\tNome     : ', linha[3].capitalize(), '\n', 
-                    '\tTipo     : ', linha[5].upper(), '\n', 
-                    '\tDocumento: ', linha[6], '\n',
-                    '\tLogin    : ', linha[1], '\n',
+                    '\tTipo     : ', linha[5].upper())
+                if linha[5] == 'pf':
+                    print('\tCPF      : ', linha[6])
+                else:
+                    print('\tCNPJ     : ', linha[6])
+                print('\tLogin    : ', linha[1], '\n',
                     '\tAgência  : ', linha[11], '\n',
                     '\tC/C      : ', linha[9], '\n')
-            input("Pressione <enter> para voltar")
+            voltar()
                 
         elif opc == '3':
             result = pDao.listar()
@@ -72,23 +77,23 @@ else:
             for linha in result:
                 print('\tID       : ', linha[0], '\n',
                     '\tNome     : ', linha[3].capitalize(), '\n', 
-                    '\tTipo     : ', linha[5].upper(), '\n', 
-                    '\tDocumento: ', linha[6], '\n',
-                    '\tLogin    : ', linha[1], '\n',
+                    '\tTipo     : ', linha[5].upper())
+                if linha[5] == 'pf':
+                    print('\tCPF      : ', linha[6])
+                else:
+                    print('\tCNPJ     : ', linha[6])
+                print('\tLogin    : ', linha[1], '\n',
                     '\tAgência  : ', linha[11], '\n',
                     '\tC/C      : ', linha[9], '\n')
             
             p.setId(input('Informe o id do usuário a ser excluído: '))
 
             idVerificado = pDao.getById(p.getId())
-            if idVerificado == None:
-                print('\nUsuário não existe em nosso banco de dados!!')
-                input('\nPressione <enter> para voltar')
-            elif p.getId() != '':
-                pDao.excluir(p)
+            if idVerificado == None or p.getId() == '1' or p.getId() == '':
+                print('\nUsuário informado não existe em nosso banco de dados!!')
+                voltar()
             else:
-                print('\nNão foi informado nenhum valor !!')
-                time.sleep(2)
+                pDao.excluir(p)
 
         elif opc == '4':
             pass
@@ -99,7 +104,6 @@ else:
             quit()
     else:
         """ Usuário Comum """
-        teclado = ''
         result = Login.autenticacao(login, senha)
         user = PessoaDao.getByLoginSenha(login, senha)
 
@@ -113,25 +117,23 @@ else:
 
         while result == True:
             msgBemVindo(p.getNome())
-            opc = inputOpc(teclado, 4, msgBemVindo)
+            opc = inputOpc(4, msgBemVindo)
             
             if opc == '1':
-                teclado = ''
-                vl = inputFloat(teclado, "Informe um valor a ser depositado: ")
+                vl = inputFloat("Valor a ser depositado: ")
                 depositado = c.depositar(vl)
                 if depositado == True:
                     pDao.atualizaSaldo(c, "Depósito")
 
             elif opc == '2':
-                teclado = ''
-                vl = inputFloat(teclado, "Informe um valor a ser sacado: ")
+                vl = inputFloat("Valor a ser sacado: ")
                 sacado = c.sacar(vl)
                 if sacado == True:
                     pDao.atualizaSaldo(c,"Saque")
 
             elif opc == '3':
                 print('\nSeu saldo em conta é de R$', c.getSaldo())
-                input('\nPressione <enter> para voltar')
+                voltar()
 
             elif opc == '4':
                 print('\nEncerrando seção ...')

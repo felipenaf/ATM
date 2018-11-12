@@ -2,10 +2,11 @@ from pessoa import Pessoa
 from contaCorrente import ContaCorrente
 from connection import Connection
 import time
+from funcoes import voltar
 
 class PessoaDao():
 
-    def getByLoginSenha(login, senha):
+    def getByLoginSenha(self, login, senha):
         try:
             con = Connection.instance()
             cursor = con.cursor()
@@ -55,7 +56,7 @@ class PessoaDao():
             print('\nNúmero da Conta:', conta.getNumeroCC())
         finally:
             con.close()
-            input('\nPressione <enter> para concluir')
+            voltar()
 
     def listar(self):
         try:
@@ -83,9 +84,8 @@ class PessoaDao():
         else:
             print('\nCliente excluído com sucesso!\n')
         finally:
-            time.sleep(3)
             con.close()
-            input('\nPressione <enter> para concluir')
+            voltar()
 
     def editar(self):
         pass
@@ -103,4 +103,4 @@ class PessoaDao():
             print('\n',msg, 'realizado com sucesso!\n')
         finally:
             con.close() 
-            input('\nPressione <enter> para concluir')
+            voltar()
