@@ -12,7 +12,8 @@ def msgBemVindo(nome):
         \t\t### 1 ## Deposito.              ###
         \t\t### 2 ## Saque.                 ###
         \t\t### 3 ## Saldo.                 ###
-        \t\t### 4 ## Sair.                  ###
+        \t\t### 4 ## Meus dados.            ###
+        \t\t### 5 ## Sair.                  ###
         \t\t###################################
       """)
 
@@ -102,12 +103,25 @@ def validaTipoPessoa(msg, aviso):
   else:
     return teclado
 
-def validaDocumento(msg, aviso):
+def validaCpf(msg):
   teclado = ''
-  while (not teclado.isdigit()):
+  while (not teclado.isdigit() or len(teclado) != 11):
     teclado = input(msg)
     if not teclado.isdigit():
-      print(aviso)
+      print("Informe apenas números!")
+    if len(teclado) != 11:
+      print("CPF possui onze dígitos!")
+  else:
+    return teclado
+
+def validaCnpj(msg):
+  teclado = ''
+  while (not teclado.isdigit() or len(teclado) != 14):
+    teclado = input(msg)
+    if not teclado.isdigit():
+      print("Informe apenas números!")
+    if len(teclado) != 14:
+      print("CNPJ possui quatorze dígitos")
   else:
     return teclado
 

@@ -36,21 +36,21 @@ else:
         if opc == '1':
             
             print('\nDados do cliente:\n')
-            p.setNome(validaInput("Nome: ",5, "O nome deve possuir no mínimo 5 caracteres!"))
+            p.setNome(validaInput("Nome: ",5, "O nome deve possuir no mínimo 5 caracteres!").lower())
             p.setLogin(validaInput("Login: ", 5, "O login deve possuir no mínimo 5 caracteres!"))
             p.setSenha(validaSenha("Senha: ", 3, "A senha deve possuir no mínimo 3 caracteres!"))
             p.setTipo(validaTipoPessoa('Tipo de pessoa ("PF" ou "PJ"): ', 'Informe "PF" ou "PJ" !!').lower())
             if p.getTipo() == 'pf':
-                p.setDocumento(validaDocumento("CPF: ", "Digite apenas números"))
+                p.setDocumento(validaCpf("CPF: "))
             else:
-                p.setDocumento(validaDocumento("CNPJ: ", "Digite apenas números"))
+                p.setDocumento(validaCnpj("CNPJ: "))
             c.setAgencia(validaAgencia("Agência: ", "Agência possui apenas 4 números"))
             c.setNumeroCC(gerador.nrConta())
-            c.depositar(inputFloat("Valor inicial da conta: "))
+            c.setSaldo(inputFloat("Valor inicial da conta: "))
 
-            confirmar = input('\nDigite <enter> pra confirmar ou "q" para cancelar ')
+            confirmar = input('\nDigite <enter> pra confirmar ou "c" para cancelar ')
 
-            if (confirmar != 'q'):
+            if (confirmar != 'c'):
                 pDao.cadastrar(p, c)
             else:
                 print('\nOperação cancelada !!')
@@ -60,7 +60,8 @@ else:
             result = pDao.listar()
             print('\n')
             for linha in result:
-                print('\tNome     : ', linha[3].title(), '\n', 
+                print('\tID       : ', linha[0], '\n',
+                    '\tNome     : ', linha[3].title(), '\n', 
                     '\tTipo     : ', linha[5].upper())
                 if linha[5] == 'pf':
                     print('\tCPF      : ', linha[6])
@@ -72,21 +73,9 @@ else:
             voltar()
                 
         elif opc == '3':
-            result = pDao.listar()
-            print('\n')
-            for linha in result:
-                print('\tID       : ', linha[0], '\n',
-                    '\tNome     : ', linha[3].title(), '\n', 
-                    '\tTipo     : ', linha[5].upper())
-                if linha[5] == 'pf':
-                    print('\tCPF      : ', linha[6])
-                else:
-                    print('\tCNPJ     : ', linha[6])
-                print('\tLogin    : ', linha[1], '\n',
-                    '\tAgência  : ', linha[11], '\n',
-                    '\tC/C      : ', linha[9], '\n')
-            
-            p.setId(input('Informe o id do usuário a ser excluído: '))
+            print("\nExcluir registro")
+
+            p.setId(input('Id cliente: '))
 
             idVerificado = pDao.getById(p.getId())
             if idVerificado == None or p.getId() == '1' or p.getId() == '':
@@ -96,23 +85,9 @@ else:
                 pDao.excluir(p)
 
         elif opc == '4':
-            print("\nAtualizar Dados")
+            print("\nAtualizar registro")
 
-            result = pDao.listar()
-            print('\n')
-            for linha in result:
-                print('\tID       : ', linha[0], '\n',
-                    '\tNome     : ', linha[3].title(), '\n', 
-                    '\tTipo     : ', linha[5].upper())
-                if linha[5] == 'pf':
-                    print('\tCPF      : ', linha[6])
-                else:
-                    print('\tCNPJ     : ', linha[6])
-                print('\tLogin    : ', linha[1], '\n',
-                    '\tAgência  : ', linha[11], '\n',
-                    '\tC/C      : ', linha[9], '\n')
-            
-            p.setId(input('Id do cliente a ser atualizado os dados: '))
+            p.setId(input('Id cliente: '))
 
             idVerificado = pDao.getById(p.getId())
 
@@ -125,12 +100,20 @@ else:
                 p.setSenha(idVerificado[2])
                 c.setAgencia(idVerificado[11])
 
-                print("Login atual:",p.getLogin())
+                print("\nLogin atual:",p.getLogin())
                 decisao = input("Deseja alterar o login? (s ou n) ")
                 if decisao == 's':
                     p.setLogin(validaInput("Novo login: ", 5, "O login deve possuir no mínimo 5 caracteres!"))
 
-                print("Agência atual:",c.getAgencia())
+                decisao = input("\nDeseja alterar a senha? (s ou n) ")
+                if decisao == 's':
+                    senha = validaSenha("Senha Atual: ", 3, "A senha deve ter mais que três caracteres!")
+                    if senha == p.getSenha():
+                        p.setSenha(validaSenha("Nova senha: ", 3, "A senha deve ter mais que três caracteres!"))
+                    else:
+                        print("Senha incorreta!")
+
+                print("\nAgência atual:",c.getAgencia())
                 decisao = input("Deseja alterar a agência? (s ou n) ")
                 if decisao == 's':
                     c.setAgencia(validaAgencia("Nova agência: ", "Agência possui apenas 4 números"))
@@ -156,16 +139,16 @@ else:
 
         while result == True:
             msgBemVindo(p.getNome())
-            opc = inputOpc(4, msgBemVindo)
+            opc = inputOpc(5, msgBemVindo)
             
             if opc == '1':
-                vl = inputFloat("Valor a ser depositado: ")
+                vl = inputFloat("Valor do deposito: ")
                 depositado = c.depositar(vl)
                 if depositado == True:
                     pDao.atualizaSaldo(c, "Depósito")
 
             elif opc == '2':
-                vl = inputFloat("Valor a ser sacado: ")
+                vl = inputFloat("Valor do saque: ")
                 sacado = c.sacar(vl)
                 if sacado == True:
                     pDao.atualizaSaldo(c,"Saque")
@@ -175,85 +158,22 @@ else:
                 voltar()
 
             elif opc == '4':
+                print("\nMeus Dados\n")
+
+                print('\tID       : ', user[0], '\n',
+                    '\tNome     : ', user[3].title(), '\n', 
+                    '\tTipo     : ', user[5].upper())
+                if user[5] == 'pf':
+                    print('\tCPF      : ', user[6])
+                else:
+                    print('\tCNPJ     : ', user[6])
+                print('\tLogin    : ', user[1], '\n',
+                    '\tAgência  : ', user[11], '\n',
+                    '\tC/C      : ', user[9], '\n')
+                
+                voltar()
+
+            elif opc == '5':
                 print('\nEncerrando seção ...')
                 time.sleep(2)
                 quit()
-
-        
-
-
-
-# c = Cliente()
-# c.setNome('felipe')
-# cDao = ClienteDao()
-# cDao.cadastrar(c)
-    
-
-# CON = Connection.instance('felipe', '123')
-# CURSOR = CON.cursor()
-
-# query = "SELECT COUNT(*) FROM cliente WHERE nome = %s and senha = %s;"
-# info = (login, senha)
-
-# resultado = CURSOR.execute(query, info)
-
-# resultado = ("%s" % CURSOR.fetchone())
-
-# while (resultado != '1'):
-#     print("\nSenha incorreta")
-#     time.sleep(3)
-#     msgLogar()
-#     login = input('Login: ')
-#     senha = getpass.getpass('Senha: ')
-# else:
-#     print('oi')
-    
-# if (resultado == '1'):
-#     print ("Bem vindo", login, "!")
-# else:
-#     msgLogar()
-
-# CON.commit()
-# print(CURSOR.rowcount, "record inserted.")
-# CON.close()
-
-
-# if login != 1:
-#     print('Opção inválida')
-# else:
-#     print('Boa meninão')
-
-# p = Cliente()
-# p.setCpf('147')
-# p.setNome('bipao')
-# p.setIdade(25)
-# p.setSenha('123')
-
-# print(p.getCpf())
-# print(p.getNome())
-# print(p.getIdade())
-# print(p.getSenha())
-
-# query = "INSERT INTO cliente (nome, idade, cpf, senha) VALUES (%s, %s, %s, %s);"
-# info = (p.getNome(), p.getIdade(), p.getCpf(), p.getSenha())
-
-# p.depositar(5)
-# p.sacar(2)
-# print(p.getSaldo())
-
-# cc = ContaCorrente()
-# print (cc.getSaldo())
-
-
-
-# CURSOR.execute("DROP TABLE pessoaFisica;")
-
-# CURSOR.execute(
-#     "CREATE TABLE pessoaFisica("
-#     "cpf VARCHAR(50) NOT NULL PRIMARY KEY,"
-#     "nome varchar(50),"
-#     "idade INT(5)"
-#     ");"
-# )
-
-

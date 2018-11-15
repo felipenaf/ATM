@@ -104,7 +104,7 @@ class PessoaDao():
         except Exception as e:
             print('\nErro!!\n', e)
         else:
-            print('\n','Alterações cadastradas com sucesso!\n')
+            print('\nAlterações cadastradas com sucesso!\n')
         finally:
             con.close() 
             voltar()
@@ -119,7 +119,7 @@ class PessoaDao():
         except Exception as e:
             print('\nErro!!\n', e)
         else:
-            print('\n',msg, 'realizado com sucesso!\n')
+            print("\n{} realizado com sucesso!\n".format(msg))
         finally:
             con.close() 
             voltar()

@@ -21,8 +21,6 @@
 
 ## O que falta 
 
-- Editar(senha) PENDENTE
-- Opção depósito não exibe mensagem de confirmação
-- Implementar de forma correta os try except em todas as classes
+- gerador em funções
 
 - ref: https://wiki.python.org.br/GeradorDeCpf
