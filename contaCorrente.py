@@ -6,7 +6,7 @@ class ContaCorrente(object):
 
     __numeroCC = ''
     __saldo = 0
-    __numeroAgencia = ''
+    __agencia = ''
     __idPessoa = 0
 
     '''
@@ -23,9 +23,9 @@ class ContaCorrente(object):
         """ Pegar o saldo """
         return self.__saldo
 
-    def getNumeroAgencia(self):
+    def getAgencia(self):
         """ Pegar o numero da agência """
-        return self.__numeroAgencia
+        return self.__agencia
 
     def getIdPessoa(self):
         return self.__idPessoa
@@ -40,9 +40,9 @@ class ContaCorrente(object):
         """ Setar o número da conta """
         self.__numeroCC = numeroCC
 
-    def setNumeroAgencia(self, numeroAgencia):
+    def setAgencia(self, agencia):
         """ Setar o número da agência """
-        self.__numeroAgencia = numeroAgencia
+        self.__agencia = agencia
 
     def setSaldo(self, saldo):
         """ Setar o saldo """

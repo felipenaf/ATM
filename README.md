@@ -14,15 +14,15 @@
 * mysql -u usuario_mysql -psenha < query.sql (Na raiz do projeto)
 
 ## Classes 
-- Cliente
+- Pessoa
+- PessoaDao
 - Conta Corrente
 - Conexão
 
 ## O que falta 
 
-- Editar PENDENTE
+- Editar(senha) PENDENTE
 - Opção depósito não exibe mensagem de confirmação
-- Exibir o nome com a primeira maiuscula, mas todos os nomes caso haja mais que um
 - Implementar de forma correta os try except em todas as classes
 
 - ref: https://wiki.python.org.br/GeradorDeCpf

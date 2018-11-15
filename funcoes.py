@@ -6,7 +6,7 @@ def msgBemVindo(nome):
       
   system("clear")
 
-  print ("""\t\t\t## Bem vindo """, nome.capitalize(), """
+  print ("""\t\t\t## Bem vindo """, nome.title(), """
         \t\tEscolha uma das opções a seguir
         \t\t###################################
         \t\t### 1 ## Deposito.              ###

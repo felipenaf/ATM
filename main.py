@@ -44,7 +44,7 @@ else:
                 p.setDocumento(validaDocumento("CPF: ", "Digite apenas números"))
             else:
                 p.setDocumento(validaDocumento("CNPJ: ", "Digite apenas números"))
-            c.setNumeroAgencia(validaAgencia("Agência: ", "Agência possui apenas 4 números"))
+            c.setAgencia(validaAgencia("Agência: ", "Agência possui apenas 4 números"))
             c.setNumeroCC(gerador.nrConta())
             c.depositar(inputFloat("Valor inicial da conta: "))
 
@@ -60,7 +60,7 @@ else:
             result = pDao.listar()
             print('\n')
             for linha in result:
-                print('\tNome     : ', linha[3].capitalize(), '\n', 
+                print('\tNome     : ', linha[3].title(), '\n', 
                     '\tTipo     : ', linha[5].upper())
                 if linha[5] == 'pf':
                     print('\tCPF      : ', linha[6])
@@ -76,7 +76,7 @@ else:
             print('\n')
             for linha in result:
                 print('\tID       : ', linha[0], '\n',
-                    '\tNome     : ', linha[3].capitalize(), '\n', 
+                    '\tNome     : ', linha[3].title(), '\n', 
                     '\tTipo     : ', linha[5].upper())
                 if linha[5] == 'pf':
                     print('\tCPF      : ', linha[6])
@@ -96,7 +96,46 @@ else:
                 pDao.excluir(p)
 
         elif opc == '4':
-            pass
+            print("\nAtualizar Dados")
+
+            result = pDao.listar()
+            print('\n')
+            for linha in result:
+                print('\tID       : ', linha[0], '\n',
+                    '\tNome     : ', linha[3].title(), '\n', 
+                    '\tTipo     : ', linha[5].upper())
+                if linha[5] == 'pf':
+                    print('\tCPF      : ', linha[6])
+                else:
+                    print('\tCNPJ     : ', linha[6])
+                print('\tLogin    : ', linha[1], '\n',
+                    '\tAgência  : ', linha[11], '\n',
+                    '\tC/C      : ', linha[9], '\n')
+            
+            p.setId(input('Id do cliente a ser atualizado os dados: '))
+
+            idVerificado = pDao.getById(p.getId())
+
+            if idVerificado == None or p.getId() == '1' or p.getId() == '':
+                print('\nUsuário informado não existe em nosso banco de dados!!')
+                voltar()
+            else:
+                p.setId(idVerificado[0])
+                p.setLogin(idVerificado[1])
+                p.setSenha(idVerificado[2])
+                c.setAgencia(idVerificado[11])
+
+                print("Login atual:",p.getLogin())
+                decisao = input("Deseja alterar o login? (s ou n) ")
+                if decisao == 's':
+                    p.setLogin(validaInput("Novo login: ", 5, "O login deve possuir no mínimo 5 caracteres!"))
+
+                print("Agência atual:",c.getAgencia())
+                decisao = input("Deseja alterar a agência? (s ou n) ")
+                if decisao == 's':
+                    c.setAgencia(validaAgencia("Nova agência: ", "Agência possui apenas 4 números"))
+
+                pDao.editar(p, c)
 
         elif opc == '5':
             print('\nEncerrando seção ...')
