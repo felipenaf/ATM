@@ -1,6 +1,7 @@
 from os import system
-import getpass
+from getpass import getpass
 import time
+import random
 
 def msgBemVindo(nome):
       
@@ -88,7 +89,7 @@ def validaInput(msg, min, aviso):
 def validaSenha(msg, min, aviso):
   teclado = ''
   while (len(teclado) < min):
-    teclado = getpass.getpass(msg)
+    teclado = getpass(msg)
     if len(teclado) < min:
       print(aviso)
   else:
@@ -136,3 +137,10 @@ def validaAgencia(msg, aviso):
 
 def voltar():
   input("\nPressione <enter> para voltar")
+
+def xrange(x):
+    return iter(range(x))
+
+def geradorConta():                                                                                             
+    n = [random.randrange(10) for i in xrange(9)]                                                                                              
+    return "%d%d.%d%d%d%d%d%d.%d" % tuple(n)

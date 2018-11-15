@@ -5,13 +5,12 @@ from pessoaDao import PessoaDao
 from contaCorrente import ContaCorrente
 from os import system
 from funcoes import *
-import getpass
+from getpass import getpass
 import time
-import gerador
 
 msgLogar()
 login = input('Login: ')
-senha = getpass.getpass('Senha: ')
+senha = getpass('Senha: ')
 result = Login.autenticacao(login, senha)
 
 while result != True:
@@ -19,7 +18,7 @@ while result != True:
     time.sleep(2)
     msgLogar()
     login = input('Login: ')
-    senha = getpass.getpass('Senha: ')
+    senha = getpass('Senha: ')
     result = Login.autenticacao(login, senha)
 else:
     """ Usuário Administrador """
@@ -45,7 +44,7 @@ else:
             else:
                 p.setDocumento(validaCnpj("CNPJ: "))
             c.setAgencia(validaAgencia("Agência: ", "Agência possui apenas 4 números"))
-            c.setNumeroCC(gerador.nrConta())
+            c.setNumeroCC(geradorConta())
             c.setSaldo(inputFloat("Valor inicial da conta: "))
 
             confirmar = input('\nDigite <enter> pra confirmar ou "c" para cancelar ')
