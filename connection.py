@@ -6,7 +6,7 @@ class Connection(object):
 
     @classmethod
     def instance(self):
-        """ Instanciar conexão do banco, passando usuario e senha como parâmetro"""
+        """ Instanciar conexão do banco """
         connection = mysql.connector.connect(
             user='felipe',
             password='123',

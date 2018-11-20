@@ -1,3 +1,19 @@
+INTEGRANTES
+
+RA        NOME
+415106511 ALYSSON DA SILVA PEREIRA
+415111123 CAUE TASSITANO PIRANI
+415102732 FELIPE DO NASCIMENTO ALVES FERREIRA
+415101992 LUCAS DUARTE GLOCKSHUBER
+415103260 MÁRIO BRUNO CATANEO DA SILVA
+315100437 RAFAEL CHELAS NOVO
+415106430 RODRIGO DIAS
+
+
+
+
+INSTRUÇÕES
+
 # ATM
 Simulação de um caixa eletrônico, com usuario master(responsável pela execução do CRUD) e usuários comuns que podem depositar, sacar, ver o saldo e ver seus dados cadastrais
 
@@ -16,6 +32,8 @@ Simulação de um caixa eletrônico, com usuario master(responsável pela execu�
 * mysql -u usuario_mysql -psenha < query.sql (Na raiz do projeto)
 
   __Ex.__ mysql -u felipe -p123 < query.sql
+
+A base de dados se encontra no arquivo query.sql
 
 
 **Configurar o arquivo connection.py:**
