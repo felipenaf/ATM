@@ -13,7 +13,7 @@ Simulação de um caixa eletrônico, com usuario master e usuários comuns que p
 - ## 1. Clonar o repositório
   `git clone https://github.com/felipenaf/ATM`
 - ## 2. Instalar o pip
-  `apt install python3-pip`
+  [Nesse Link](https://pypi.org/project/pip/)
 - ## 3. Atualização do setuptools e instalação de libs
   `pip3 install --upgrade setuptools`
 
