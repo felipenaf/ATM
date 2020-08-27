@@ -1,41 +1,37 @@
 # ATM
-Simulação de um caixa eletrônico, com usuario master(responsável pela execução do CRUD) e usuários comuns que podem depositar, sacar, ver o saldo e ver seus dados cadastrais
 
-## Ambiente
-- Linux Mint 19 Tara
-- Python 3.6
-- mysql-connector(Módulo de python)
-- Mysql
+# Sobre
+Simulação de um caixa eletrônico, com usuario master e usuários comuns que podem depositar, sacar, ver o saldo e ver seus dados cadastrais
 
+# Iniciando
+## Pré-requisitos
+- `Python 3.6`
+- `pip3`
+- `Mysql`
 
-## Ações necessárias:
-**Executar os seguintes comandos no terminal:**
-* sudo apt install python3-pip 
-* pip3 install --upgrade setuptools
-* pip3 install mysql-connector 
-* mysql -u usuario_mysql -psenha < query.sql (Na raiz do projeto)
+# Instalação
+- ## 1. Clonar o repositório
+  `git clone https://github.com/felipenaf/ATM`
+- ## 2. Instalar o pip
+  `apt install python3-pip`
+- ## 3. Atualização do setuptools e instalação de libs
+  `pip3 install --upgrade setuptools`
 
-  __Ex.__ mysql -u felipe -p123 < query.sql
+  `pip3 install mysql-connector`
+- ## 5. Criação e configuração da base de dados
+  `mysql -u usuario_mysql -psenha < query.sql`
+  **(Na raiz do projeto)**
 
+  **Configurar o arquivo `connection.py`** com os dados da base.
 
-**Configurar o arquivo connection.py:**
+## Observação
+  - **Login e senha padrão** 
+  
+    **login**: admin
+  
+    **senha**: admin
 
-* user='nome_de_usuario_do_banco'
-* password='senha_do_usuario_banco'
-* host='ip_servidor'
-* database='base_de_dados'
-
-__Ex.__
-
-* user='felipe',
-* password='123',
-* host='127.0.0.1',
-* database='atm'
-
-**Login e senha padrão** 
-
-* login: admin
-* senha: admin
+# Extras
 
 ## Classes 
 - Pessoa
